@@ -1,0 +1,67 @@
+name: CI/CD
+
+# Run on every push to main and on every pull request into main.
+# workflow_dispatch adds a manual "Run workflow" button in the Actions tab.
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# If a newer run starts on the same branch, cancel the older one.
+concurrency:
+  group: ci-cd-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ---------- Continuous Integration ----------
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Run automated tests
+        run: npm test
+
+  build:
+    name: Build
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Build the site into dist/
+        run: npm run build
+      - name: Verify the build output
+        run: npm run verify
+      - name: Package dist/ as a deployable artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  # ---------- Continuous Deployment ----------
+  # Runs only for pushes to main, never for pull requests.
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publish to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

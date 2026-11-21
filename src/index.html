@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Harbor &amp; Pine Studio | Web design and development</title>
+  <meta name="description" content="Harbor &amp; Pine Studio designs and builds fast, accessible websites.">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <span class="brand">Harbor &amp; Pine</span>
+    <nav>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Websites that load fast and stay up to date.</h1>
+      <p>We design, build and maintain websites for small businesses. Every change we make is tested and released automatically.</p>
+      <a class="button" href="#contact">Start a project</a>
+    </section>
+
+    <section id="services">
+      <h2>What we do</h2>
+      <div class="cards">
+        <article>
+          <h3>Design</h3>
+          <p>Clear layouts and readable typography that work on any screen size.</p>
+        </article>
+        <article>
+          <h3>Development</h3>
+          <p>Clean HTML, CSS and JavaScript with no unnecessary dependencies.</p>
+        </article>
+        <article>
+          <h3>Maintenance</h3>
+          <p>Regular updates delivered through an automated pipeline, so releases are small and safe.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>Contact us</h2>
+      <form id="contact-form" novalidate>
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" autocomplete="name">
+        <span class="error" data-for="name"></span>
+
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" autocomplete="email">
+        <span class="error" data-for="email"></span>
+
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="4"></textarea>
+        <span class="error" data-for="message"></span>
+
+        <button class="button" type="submit">Send message</button>
+        <p id="form-status" role="status"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <span>&copy; Harbor &amp; Pine Studio</span>
+    <span id="build-info">Build __BUILD_VERSION__ on __BUILD_DATE__</span>
+  </footer>
+</body>
+</html>
