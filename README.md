@@ -1,6 +1,10 @@
 # Harbor & Pine Studio: website with a CI/CD pipeline
 
+[![CI/CD](https://github.com/ForgefriendT/cicd-website/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/ForgefriendT/cicd-website/actions/workflows/ci-cd.yml)
+
 A small static website whose every change is tested, built and published automatically by GitHub Actions.
+
+**Live Site:** https://forgefriendt.github.io/cicd-website/
 
 ![Workflow diagram](docs/workflow-diagram.png)
 
